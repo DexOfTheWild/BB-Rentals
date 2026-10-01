@@ -1,0 +1,125 @@
+{
+  "format": 1,
+  "id": "bb-rentals",
+  "version": "0.1.0",
+  "games": [
+    {
+      "id": "legacy.mario64",
+      "system": "n64",
+      "name": "Mario 64 box",
+      "price": 2500,
+      "catalog": true,
+      "rental": true,
+      "profile": "sm64",
+      "sha256": [
+        "17ce077343c6133f8c9f2d6d6d9a4ab62c8cd2aa57c40aea1f490b4c8bb21d91",
+        "745784e8b61cc604e425f4ece30af179b1ea68bdef21057c71fc7c56622c467f",
+        "f3b0fc9f565f995368b6fa5aefc8ec1e5194c488948b41f3534dece4abcec2b4"
+      ],
+      "model": "assets/legacy.mario64/model.obj",
+      "material": "assets/legacy.mario64/model.mtl"
+    },
+    {
+      "id": "legacy.sonic3",
+      "system": "genesis",
+      "name": "Sonic 3 box",
+      "price": 2500,
+      "catalog": true,
+      "rental": true,
+      "profile": "sonic3",
+      "sha256": [
+        "d6404843c5ba32486f4c8c744acb7e1932069376960d886b1de37969787d3f9c"
+      ],
+      "model": "assets/legacy.sonic3/model.obj",
+      "material": "assets/legacy.sonic3/model.mtl"
+    },
+    {
+      "id": "legacy.megaman2",
+      "system": "famicom",
+      "name": "Mega Man 2 box",
+      "price": 2500,
+      "catalog": true,
+      "rental": false,
+      "profile": "mm2",
+      "sha256": [
+        "9f5fa21062933e89c4f923d7755b6df185b054e84d9b5a6ef54216ac4dd67070"
+      ],
+      "model": "assets/legacy.megaman2/model.obj",
+      "material": "assets/legacy.megaman2/model.mtl"
+    },
+    {
+      "id": "legacy.banjo-tooie",
+      "system": "n64",
+      "name": "Banjo-Tooie box",
+      "price": 2500,
+      "catalog": true,
+      "rental": true,
+      "profile": "generic",
+      "sha256": [
+        "9ec37fba6890362eba86fb855697a9cff1519275531b172083a1a6a045483583",
+        "bef9321a24f5b16783b38c4be7901eab1ab6c60016e4ed921556f013955a139c",
+        "cb8bd90a643ed94cd408ce2453134d441ff231187676d187f9f56314707c1dd3"
+      ],
+      "model": "assets/legacy.banjo-tooie/model.obj",
+      "material": "assets/legacy.banjo-tooie/model.mtl"
+    },
+    {
+      "id": "legacy.diddy-kong-racing",
+      "system": "n64",
+      "name": "Diddy Racing box",
+      "price": 2500,
+      "catalog": true,
+      "rental": true,
+      "profile": "generic",
+      "sha256": [
+        "75f3a553e84be8b44e74d45565d8b4b2a0e305cecc4a886f403a41c962d6d4eb",
+        "7de1a8fb2a9558cfc3d9ad4497df698c1e89cf7095ac1531557df2af40ba8bcf",
+        "8ba618954452ff1f6ad77674acf14d6d3ab614cdb474a658852fc776e4216371"
+      ],
+      "model": "assets/legacy.diddy-kong-racing/model.obj",
+      "material": "assets/legacy.diddy-kong-racing/model.mtl"
+    },
+    {
+      "id": "legacy.crash-bandicoot",
+      "system": "psx",
+      "name": "Crash CD case",
+      "price": 2500,
+      "catalog": true,
+      "rental": true,
+      "profile": "generic",
+      "sha256": [
+        "f99440610c89dd7c5ce67eed3fe5593875c659df3fd143f7194fcea01434c35d"
+      ],
+      "model": "assets/legacy.crash-bandicoot/model.obj",
+      "material": "assets/legacy.crash-bandicoot/model.mtl"
+    },
+    {
+      "id": "legacy.sf2-turbo",
+      "system": "snes",
+      "name": "SFII Turbo box",
+      "price": 2500,
+      "catalog": true,
+      "rental": true,
+      "profile": "generic",
+      "sha256": [
+        "09083869afdc353da7addea88b191b859f11f79ff655f221cbc581d21d2dd8c3"
+      ],
+      "model": "assets/legacy.sf2-turbo/model.obj",
+      "material": "assets/legacy.sf2-turbo/model.mtl"
+    },
+    {
+      "id": "bb.battletoads",
+      "system": "famicom",
+      "name": "Battletoads box",
+      "price": 2500,
+      "catalog": false,
+      "rental": false,
+      "profile": "battletoads",
+      "sha256": [
+        "2cc2a9afae9b9e875f0fd2f36affb615d81ce4301dbf530336fc23add999e63d"
+      ],
+      "model": "assets/bb.battletoads/model.obj",
+      "material": "assets/bb.battletoads/model.mtl"
+    }
+  ]
+}

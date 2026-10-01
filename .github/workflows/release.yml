@@ -1,0 +1,25 @@
+name: Artwork release
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: write
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest test_build_pack
+      - run: python build_pack.py
+      - name: Check tag matches catalog
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: python -c "import json,os; assert json.load(open('dist/BB-Rentals.json'))['tag']==os.environ['RELEASE_TAG']"
+      - name: Publish artwork assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: gh release create "$RELEASE_TAG" dist/BB-Rentals.zip dist/BB-Rentals.json --title "BB-Rentals $RELEASE_TAG" --generate-notes
