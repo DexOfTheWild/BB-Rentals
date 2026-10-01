@@ -39,7 +39,7 @@
       "name": "Mega Man 2 box",
       "price": 2500,
       "catalog": true,
-      "rental": false,
+      "rental": true,
       "profile": "mm2",
       "sha256": [
         "9f5fa21062933e89c4f923d7755b6df185b054e84d9b5a6ef54216ac4dd67070"
@@ -112,14 +112,44 @@
       "system": "famicom",
       "name": "Battletoads box",
       "price": 2500,
-      "catalog": false,
-      "rental": false,
+      "catalog": true,
+      "rental": true,
       "profile": "battletoads",
       "sha256": [
         "2cc2a9afae9b9e875f0fd2f36affb615d81ce4301dbf530336fc23add999e63d"
       ],
       "model": "assets/bb.battletoads/model.obj",
       "material": "assets/bb.battletoads/model.mtl"
+    },
+    {
+      "id": "bb.super-smash-bros",
+      "system": "n64",
+      "name": "Smash Bros box",
+      "price": 2500,
+      "catalog": true,
+      "rental": true,
+      "profile": "generic",
+      "sha256": [
+        "1268557bd71c9a42e2973849e06c42ef06f5e8aa7c24857974b7260e77716b4c",
+        "15592e79d3c5295cef4371d4992f0bd25bec2102fc29644c93e682f7ea99ef3d",
+        "a1ea87138b2d735f14280c3e8683ae03daf18bc2a12b70c4a92ea83ff012c293"
+      ],
+      "model": "assets/bb.super-smash-bros/model.obj",
+      "material": "assets/bb.super-smash-bros/model.mtl"
+    },
+    {
+      "id": "bb.tiny-toons",
+      "system": "famicom",
+      "name": "Tiny Toons box",
+      "price": 2500,
+      "catalog": true,
+      "rental": true,
+      "profile": "generic",
+      "sha256": [
+        "ac16bac211aba891529a50854556cf22e9f8f3a485002aa62d9f93179edfac8d"
+      ],
+      "model": "assets/bb.tiny-toons/model.obj",
+      "material": "assets/bb.tiny-toons/model.mtl"
     }
   ]
 }

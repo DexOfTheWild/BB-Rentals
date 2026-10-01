@@ -43,6 +43,13 @@ class PackTests(unittest.TestCase):
     def test_missing_model_rejected(self):
         self.catalog['games'][0]['model']='assets/test/missing.obj'
         with self.assertRaisesRegex(ValueError,'Missing'):self.run_build()
+    def test_nes_catalog_and_rental_supported_but_handheld_still_blocked(self):
+        self.catalog['games'][0]['system']='famicom'
+        result=self.run_build()
+        self.assertTrue(result['games'][0]['catalog'])
+        self.assertTrue(result['games'][0]['rental'])
+        self.catalog['games'][0]['system']='gameboy'
+        with self.assertRaisesRegex(ValueError,'Handheld'):self.run_build()
     def test_material_cannot_escape(self):
         (self.root/'assets/test/model.mtl').write_text('newmtl test\nmap_Kd ../outside.png\n')
         with self.assertRaisesRegex(ValueError,'adjacent'):self.run_build()

@@ -35,8 +35,8 @@ def build(root, out):
             raise ValueError('Invalid price')
         if game.get('profile','') not in {'','generic','sm64','sonic3','mm2','battletoads','gameboy'}:
             raise ValueError('Unknown compiled profile')
-        if (game['system']=='gameboy' or (game['system']=='famicom' and game['id']!='legacy.megaman2')) and (game['catalog'] or game['rental']):
-            raise ValueError('New NES/handheld physical adapters are not available')
+        if game['system']=='gameboy' and (game['catalog'] or game['rental']):
+            raise ValueError('Handheld physical adapter is not available')
         if not game['sha256']:
             raise ValueError('No recognition fingerprints')
         for h in game['sha256']:

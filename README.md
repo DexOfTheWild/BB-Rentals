@@ -17,9 +17,10 @@ system packaging. N64 fingerprints include the three byte orders. PSX currently
 recognizes the supplied CHD encoding; other CHD encodings can be added as hashes.
 
 Catalog availability requires a readable player ROM and an implemented media
-adapter. N64, Genesis, SNES and PSX boxes use physical consoles. New NES media and
-Game Boy selectors still need adapters; their pack entries cannot auto-sell or
-rent. The migrated Mega Man 2 display box retains its legacy identity. Pokémon
+adapter. NES, N64, Genesis, SNES and PSX boxes use physical consoles. NES media
+requires the main-game build with the standalone NES console adapter. Game Boy
+still needs a media selector; its entries cannot auto-sell or rent. The migrated
+Mega Man 2 box retains its legacy identity. Pokémon
 is intentionally outside automatic discovery/catalog/rentals.
 
 Rental eligibility feeds the game's rental pool. Bob's shelf checkout is a
@@ -28,6 +29,15 @@ Game cores/BIOS and compatibility remain the main game's responsibility.
 
 Manual library imports take precedence. Disabling this pack returns automatically
 discovered games to generic boxes without removing owned items, ROMs or saves.
+
+## Artwork pending
+
+Super Smash Bros. (`bb.super-smash-bros`) and Tiny Toons (`bb.tiny-toons`)
+are recognized using the supplied ROM fingerprints and temporarily use neutral
+system boxes. Replace their assets in place when the custom artwork is ready;
+keep the IDs unchanged. Both are catalog/rental eligible on the updated game
+build; Tiny Toons uses the standalone NES console. Mega Man 2 and Battletoads
+are also enabled for that console and the rental pool.
 
 ## Maintainers
 
