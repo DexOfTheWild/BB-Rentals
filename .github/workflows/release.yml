@@ -12,12 +12,23 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m unittest test_build_pack
-      - run: python build_pack.py
       - name: Check tag matches catalog
         env:
           RELEASE_TAG: ${{ github.ref_name }}
-        run: python -c "import json,os; assert json.load(open('dist/BB-Rentals.json'))['tag']==os.environ['RELEASE_TAG']"
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import sys
+          version = json.load(open('catalog.json', encoding='utf-8'))['version']
+          expected = 'v' + version
+          actual = os.environ['RELEASE_TAG']
+          if expected != actual:
+              sys.exit(f'Release tag {actual} does not match catalog.json version {version} '
+                       f'(expected {expected}). Commit the matching catalog version before tagging.')
+          PY
+      - run: python -m unittest test_build_pack
+      - run: python build_pack.py
       - name: Publish artwork assets
         env:
           GH_TOKEN: ${{ github.token }}
