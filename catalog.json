@@ -1,7 +1,7 @@
 {
   "format": 1,
   "id": "bb-rentals",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "games": [
     {
       "id": "legacy.mario64",
@@ -150,6 +150,22 @@
       ],
       "model": "assets/bb.tiny-toons/model.obj",
       "material": "assets/bb.tiny-toons/model.mtl"
+    },
+    {
+      "id": "bb.star-fox-64",
+      "system": "n64",
+      "name": "Star Fox 64 box",
+      "price": 2500,
+      "catalog": true,
+      "rental": true,
+      "profile": "generic",
+      "sha256": [
+        "385bcf1901ed12fb1152f3c227d1968cc54ae41e8566da66695df71af40a573f",
+        "42675e5d096cac1ff6f16864c6a13a40547eb03521be45d2158290802245eca3",
+        "599e604c59db55a64c5a5bedef1e22bf0a776a43526c5745d80d24a1cb45727e"
+      ],
+      "model": "assets/bb.star-fox-64/model.obj",
+      "material": "assets/bb.star-fox-64/model.mtl"
     }
   ]
 }
