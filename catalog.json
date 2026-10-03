@@ -1,7 +1,7 @@
 {
   "format": 1,
   "id": "bb-rentals",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "games": [
     {
       "id": "legacy.mario64",
@@ -166,6 +166,62 @@
       ],
       "model": "assets/bb.star-fox-64/model.obj",
       "material": "assets/bb.star-fox-64/model.mtl"
+    },
+    {
+      "id": "bb.hyperstone-heist",
+      "system": "genesis",
+      "name": "Hyperstone box",
+      "price": 2500,
+      "catalog": true,
+      "rental": true,
+      "profile": "generic",
+      "sha256": [
+        "1b0b84f78b43a2ede61ab0ebea094768f86d64660002f1fe67ff0ceaa4a7ae0d"
+      ],
+      "model": "assets/bb.hyperstone-heist/model.obj",
+      "material": "assets/bb.hyperstone-heist/model.mtl"
+    },
+    {
+      "id": "bb.super-metroid",
+      "system": "snes",
+      "name": "SuperMetroid box",
+      "price": 2500,
+      "catalog": true,
+      "rental": true,
+      "profile": "generic",
+      "sha256": [
+        "12b77c4bc9c1832cee8881244659065ee1d84c70c3d29e6eaf92e6798cc2ca72"
+      ],
+      "model": "assets/bb.super-metroid/model.obj",
+      "material": "assets/bb.super-metroid/model.mtl"
+    },
+    {
+      "id": "bb.thps2",
+      "system": "psx",
+      "name": "THPS2 CD case",
+      "price": 2500,
+      "catalog": true,
+      "rental": true,
+      "profile": "generic",
+      "sha256": [
+        "f840f560904ef145000aee4e63853394f51fba21e99a3f57be972a1e7f7c4900"
+      ],
+      "model": "assets/bb.thps2/model.obj",
+      "material": "assets/bb.thps2/model.mtl"
+    },
+    {
+      "id": "bb.donkey-kong-country",
+      "system": "snes",
+      "name": "DK Country box",
+      "price": 2500,
+      "catalog": true,
+      "rental": true,
+      "profile": "generic",
+      "sha256": [
+        "df2644d435330192a13768cc1f79c5aa3084a64217a5250c6dd4ffdbe2175be4"
+      ],
+      "model": "assets/bb.donkey-kong-country/model.obj",
+      "material": "assets/bb.donkey-kong-country/model.mtl"
     }
   ]
 }

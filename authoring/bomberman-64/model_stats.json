@@ -1,0 +1,24 @@
+{
+  "triangles": 12,
+  "unique_positions": 8,
+  "materials": 1,
+  "texture": [
+    128,
+    128
+  ],
+  "front_cover_pixels": [
+    64,
+    48
+  ],
+  "dimensions_metres": [
+    0.18,
+    0.135,
+    0.028
+  ],
+  "corner_clip_metres": 0,
+  "up_axis": "+Y",
+  "front_axis": "+Z",
+  "origin": "bottom center",
+  "filter": "nearest",
+  "closed_manifold": true
+}

@@ -1,0 +1,43 @@
+<div id="bomberman-64-case-viewer">
+  <div class="viz-row"><button class="btn" type="button" data-view="front">Front</button><button class="btn" type="button" data-view="back">Back</button><button class="btn" type="button" data-view="spine">Spine</button><button class="btn" type="button" data-wire aria-pressed="false">Wireframe</button><span class="text-small text-muted">12 triangles · 128 × 128 texture</span></div>
+  <canvas aria-label="Bomberman 64 textured N64 carton model. Drag to orbit; use Front, Back, and Spine buttons for keyboard navigation."></canvas>
+  <label class="form-label" for="bm64-case-zoom">Zoom <span data-zoom-value>100%</span></label><input class="form-range" id="bm64-case-zoom" type="range" min="65" max="150" value="100">
+  <div class="text-small text-muted" data-status aria-live="polite">Drag to rotate · Scroll to zoom</div>
+</div>
+<style>
+  #bomberman-64-case-viewer canvas { display:block; width:100%; height:460px; touch-action:none; }
+  @media(max-width:420px) { #bomberman-64-case-viewer canvas { height:380px; } }
+</style>
+<script id="bm64-case-data" type="application/json">__MODEL__</script>
+<script>
+(() => {
+ const root=document.getElementById('bomberman-64-case-viewer'), canvas=root.querySelector('canvas');
+ const status=root.querySelector('[data-status]'), slider=root.querySelector('input'), zoomLabel=root.querySelector('[data-zoom-value]');
+ const gl=canvas.getContext('webgl',{antialias:false,alpha:true});
+ if(!gl){status.textContent='WebGL unavailable. Open the saved preview images.';return;}
+ const model=JSON.parse(document.getElementById('bm64-case-data').textContent);
+ const vertex=`attribute vec3 p,n;attribute vec2 uv;uniform vec3 R,U,E;uniform float aspect,scale;varying vec2 tex;varying float shade;void main(){vec3 v=p-vec3(0.,.0675,0.);gl_Position=vec4(dot(v,R)*scale/aspect,dot(v,U)*scale,-dot(v,E)*3.,1.);tex=uv;shade=.8+.2*max(0.,dot(n,normalize(vec3(-.5,1.,1.))));}`;
+ const fragment=`precision mediump float;uniform sampler2D atlas;uniform bool wire;uniform vec3 lineColor;varying vec2 tex;varying float shade;void main(){gl_FragColor=wire?vec4(lineColor,1.):vec4(texture2D(atlas,tex).rgb*shade,1.);}`;
+ function shader(type,text){const s=gl.createShader(type);gl.shaderSource(s,text);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s;}
+ const program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER,vertex));gl.attachShader(program,shader(gl.FRAGMENT_SHADER,fragment));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));gl.useProgram(program);
+ const data=new Float32Array(model.vertices),vb=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,vb);gl.bufferData(gl.ARRAY_BUFFER,data,gl.STATIC_DRAW);
+ for(const [name,size,offset] of [['p',3,0],['n',3,12],['uv',2,24]]){const loc=gl.getAttribLocation(program,name);gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,size,gl.FLOAT,false,32,offset);}
+ const edges=[];for(let i=0;i<data.length/8;i+=3)edges.push(i,i+1,i+1,i+2,i+2,i);
+ const eb=gl.createBuffer();gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,eb);gl.bufferData(gl.ELEMENT_ARRAY_BUFFER,new Uint16Array(edges),gl.STATIC_DRAW);
+ const u={};for(const name of ['R','U','E','aspect','scale','atlas','wire','lineColor'])u[name]=gl.getUniformLocation(program,name);
+ let yaw=-.36,pitch=.14,zoom=100,wire=false,ready=false,drag=null;
+ function restore(state){const s=state?.privateContent;if(!s)return;if(Number.isFinite(s.yaw))yaw=s.yaw;if(Number.isFinite(s.pitch))pitch=Math.max(-1.3,Math.min(1.3,s.pitch));if(Number.isFinite(s.zoom))zoom=Math.max(65,Math.min(150,s.zoom));wire=!!s.wire;slider.value=zoom;zoomLabel.textContent=zoom+'%';root.querySelector('[data-wire]').setAttribute('aria-pressed',wire);draw();}
+ function save(){window.openai?.setWidgetState?.({modelContent:{model:'Bomberman 64 N64 carton'},privateContent:{yaw,pitch,zoom,wire}})?.catch(()=>{});}
+ function draw(){if(!ready)return;const w=canvas.clientWidth,h=canvas.clientHeight,dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);gl.viewport(0,0,canvas.width,canvas.height);gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.enable(gl.DEPTH_TEST);gl.enable(gl.CULL_FACE);
+  const R=[Math.cos(yaw),0,-Math.sin(yaw)],U=[-Math.sin(yaw)*Math.sin(pitch),Math.cos(pitch),-Math.cos(yaw)*Math.sin(pitch)],E=[Math.sin(yaw)*Math.cos(pitch),Math.sin(pitch),Math.cos(yaw)*Math.cos(pitch)];
+  for(const [name,v] of [['R',R],['U',U],['E',E]])gl.uniform3fv(u[name],v);gl.uniform1f(u.aspect,w/h);gl.uniform1f(u.scale,8.5*zoom/100*Math.min(1,(w/h)/.8));gl.uniform1i(u.wire,0);gl.enable(gl.POLYGON_OFFSET_FILL);gl.polygonOffset(1,1);gl.drawArrays(gl.TRIANGLES,0,data.length/8);gl.disable(gl.POLYGON_OFFSET_FILL);
+  if(wire){const probe=document.createElement('span');probe.style.color='var(--foreground)';root.append(probe);const color=getComputedStyle(probe).color.match(/[\d.]+/g)?.slice(0,3).map(Number)||[128,128,128];probe.remove();gl.uniform3fv(u.lineColor,color.map(x=>x/255));gl.uniform1i(u.wire,1);gl.drawElements(gl.LINES,edges.length,gl.UNSIGNED_SHORT,0);}}
+ const texture=gl.createTexture(),img=new Image();img.onload=()=>{gl.bindTexture(gl.TEXTURE_2D,texture);gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL,true);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,gl.RGBA,gl.UNSIGNED_BYTE,img);for(const p of [gl.TEXTURE_MIN_FILTER,gl.TEXTURE_MAG_FILTER])gl.texParameteri(gl.TEXTURE_2D,p,gl.NEAREST);for(const p of [gl.TEXTURE_WRAP_S,gl.TEXTURE_WRAP_T])gl.texParameteri(gl.TEXTURE_2D,p,gl.CLAMP_TO_EDGE);gl.uniform1i(u.atlas,0);ready=true;draw();};img.onerror=()=>status.textContent='Texture failed to load.';img.src='data:image/png;base64,'+model.texture;
+ root.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{yaw={front:-.36,back:Math.PI+.36,spine:-Math.PI/2}[b.dataset.view];pitch=.14;status.textContent=b.textContent+' view';draw();save();});
+ root.querySelector('[data-wire]').onclick=e=>{wire=!wire;e.currentTarget.setAttribute('aria-pressed',wire);draw();save();};
+ slider.oninput=()=>{zoom=Number(slider.value);zoomLabel.textContent=zoom+'%';draw();};slider.onchange=save;
+ canvas.onpointerdown=e=>{drag=[e.clientX,e.clientY];canvas.setPointerCapture(e.pointerId);};canvas.onpointerup=canvas.onpointercancel=()=>{drag=null;save();};canvas.onpointermove=e=>{if(!drag)return;yaw-=(e.clientX-drag[0])*.008;pitch=Math.max(-1.3,Math.min(1.3,pitch+(e.clientY-drag[1])*.008));drag=[e.clientX,e.clientY];draw();};
+ canvas.addEventListener('wheel',e=>{e.preventDefault();zoom=Math.round(Math.max(65,Math.min(150,zoom*Math.exp(-e.deltaY*.001))));slider.value=zoom;zoomLabel.textContent=zoom+'%';draw();save();},{passive:false});
+ restore(window.openai?.widgetState);window.addEventListener('openai:set_globals',e=>restore(e.detail?.globals?.widgetState));new ResizeObserver(draw).observe(canvas);
+})();
+</script>

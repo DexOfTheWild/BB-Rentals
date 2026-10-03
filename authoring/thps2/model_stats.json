@@ -1,0 +1,33 @@
+{
+  "triangles": 44,
+  "unique_positions": 24,
+  "materials": 1,
+  "texture": [
+    128,
+    128
+  ],
+  "front_insert_pixels": [
+    54,
+    54
+  ],
+  "back_insert_pixels": [
+    62,
+    54
+  ],
+  "spine_insert_pixels": [
+    4,
+    54
+  ],
+  "dimensions_metres": [
+    0.142,
+    0.125,
+    0.0104
+  ],
+  "bevel_metres": 0.0007,
+  "up_axis": "+Y",
+  "front_axis": "+Z",
+  "origin": "bottom center",
+  "filter": "nearest",
+  "closed_manifold": true,
+  "alpha": false
+}
